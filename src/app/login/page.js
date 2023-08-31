@@ -1,6 +1,8 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import styles from '../page.module.css';
+
 
 const users = [
   {
@@ -39,11 +41,14 @@ const Login = () => {
 
   return (
     <div>
-      <h1>Iniciar sesión</h1>
-      <form onSubmit={onSubmit}>
+      
+      <div className={styles.landig}>
+      <h1 className={styles.title} >Bienvenidos a Argentask</h1> 
+      <h2>Iniciar sesión</h2>
+      <form  onSubmit={onSubmit}>
         <input
           type="email"
-          placeholder="Correo electrónico"
+          placeholder="usuario@ejemplo.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -55,6 +60,7 @@ const Login = () => {
         />
         <button type="submit">Iniciar sesión</button>
       </form>
+      </div>
     </div>
   );
 };
