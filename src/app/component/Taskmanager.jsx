@@ -1,26 +1,22 @@
 'use client'
 import React, { useState } from 'react';
-import Image from 'next/image';
 
 const TaskManager = () => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
   const [newTaskDescription, setNewTaskDescription] = useState('');
   const [tasks, setTasks] = useState([]);
+  const [filterTerm, setFilterTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
 
   const handleAddTask = (e) => {
     e.preventDefault();
-
-    // Agregar la nueva tarea al array de tareas
     const newTask = {
       id: Date.now(),
       title: newTaskTitle,
       description: newTaskDescription,
       completed: false,
     };
-
     setTasks([...tasks, newTask]);
-
-    // Limpiar los campos de entrada de nueva tarea
     setNewTaskTitle('');
     setNewTaskDescription('');
   };
@@ -44,13 +40,33 @@ const TaskManager = () => {
   };
 
   const handleTaskDelete = (id) => {
-    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    if (window.confirm('¿Estás seguro de que deseas eliminar esta tarea?')) {
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    }
   };
+
+  const handleFilterChange = (event) => {
+    setFilterTerm(event.target.value);
+  };
+
+  const handleSortOrderChange = (event) => {
+    setSortOrder(event.target.value);
+  };
+
+  const filteredTasks = tasks
+    .filter(task =>
+      filterTerm === '' || filterTerm === 'todos' ? true : task.completed === (filterTerm === 'completa')
+    )
+    .sort((task1, task2) =>
+      sortOrder === 'asc'
+        ? task1.title.localeCompare(task2.title)
+        : task2.title.localeCompare(task1.title)
+    );
 
   return (
     <div>
       <h1>Tareas</h1>
-
+      <h2>Ingrese tareas</h2>
       <form onSubmit={handleAddTask}>
         <input
           type="text"
@@ -67,6 +83,21 @@ const TaskManager = () => {
         <button type="submit">Agregar</button>
       </form>
 
+      <div>
+        <label>Filtrar por:</label>
+        <select name="filterTerm" onChange={handleFilterChange}>
+          <option value="todos">Todos</option>
+          <option value="pendiente">Pendiente</option>
+          <option value="completa">Completa</option>
+        </select>
+
+        <label>Ordenar por:</label>
+        <select name="sortOrder" onChange={handleSortOrderChange}>
+          <option value="asc">Ascendente</option>
+          <option value="desc">Descendente</option>
+        </select>
+      </div>
+
       <table>
         <thead>
           <tr>
@@ -77,23 +108,19 @@ const TaskManager = () => {
           </tr>
         </thead>
         <tbody>
-          {tasks.map((task) => (
+          {filteredTasks.map((task) => (
             <tr key={task.id}>
               <td>{task.title}</td>
               <td>{task.description}</td>
               <td>
-                {task.completed ? (
-                "✓"
-                ) : (
-                  "⚠"
-                )}
+                {task.completed ? 'Completada' : 'Pendiente'}
               </td>
               <td>
                 <button
                   type="button"
                   onClick={() => handleTaskToggleCompleted(task.id)}
                 >
-                  {task.completed ? 'Marcar como incompleta' : 'Marcar como hecha'}
+                  {task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
                 </button>
                 <button
                   type="button"

@@ -6,9 +6,16 @@ const Signup = () => {
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Validar que la contraseña y la confirmación de la contraseña sean iguales
+    if (password !== confirmPassword) {
+      alert('La contraseña y la confirmación de la contraseña no coinciden');
+      return;
+    }
 
     // Enviar los datos del formulario al servidor
     // ...
@@ -44,6 +51,12 @@ const Signup = () => {
           placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Confirmar contraseña"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <button type="submit">Registrarse</button>
       </form>
