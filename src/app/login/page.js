@@ -1,14 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from '../page.module.css';
+import styles from './login.module.css';
 
 
 const users = [
   {
     email: 'usuario@ejemplo.com',
     password: 'contraseña',
-  },
+     },
 ];
 
 const Login = () => {
@@ -44,21 +44,24 @@ const Login = () => {
       
       <div className={styles.landig}>
       <h1 className={styles.title} >Bienvenidos a Argentask</h1> 
-      <h2>Iniciar sesión</h2>
-      <form  onSubmit={onSubmit}>
+      <h2 className={styles.title}>Login / Iniciar sesión</h2>
+      <form className={styles.form} onSubmit={onSubmit}>
         <input
           type="email"
           placeholder="usuario@ejemplo.com"
           value={email}
+          className={styles.input}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          className={styles.input}
           type="password"
-          placeholder="Contraseña"
+          placeholder="contraseña"
           value={password}
+          v
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit">Iniciar sesión</button>
+        <button className={styles.button} type="submit">Iniciar sesión</button>
       </form>
       </div>
     </div>

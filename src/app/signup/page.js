@@ -1,5 +1,6 @@
 "use client"
 import React, { useState } from 'react';
+import styles from './signup.module.css';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -25,40 +26,47 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      <h1>Registro</h1>
-      <form onSubmit={handleSubmit}>
+    
+      <div className={styles.landing}>  
+      <h1 className={styles.title} >Argentask</h1> 
+      <h2 className={styles.title}>Sign Up / Registro</h2>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="text"
           placeholder="Nombre"
+          className={styles.input}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="text"
           placeholder="Apellido"
+          className={styles.input}
           value={surname}
           onChange={(e) => setSurname(e.target.value)}
         />
         <input
           type="email"
           placeholder="Email"
+          className={styles.input}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
           type="password"
           placeholder="Contraseña"
+          className={styles.input}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           placeholder="Confirmar contraseña"
+          className={styles.input}
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button type="submit">Registrarse</button>
+        <button className={styles.button} type="submit">Sign Up / Registrarse</button>
       </form>
     </div>
   );

@@ -3,9 +3,7 @@ import TaskManager from '../component/Taskmanager';
 
 const Taskboard = () => {
   return (
-    <div>
-      <h1> task board</h1>
-     
+    <div>          
       <TaskManager></TaskManager>
     </div>
   );

@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react';
+import styles from './taskmanager.module.css';
 
 const TaskManager = () => {
   const [newTaskTitle, setNewTaskTitle] = useState('');
@@ -65,22 +66,24 @@ const TaskManager = () => {
 
   return (
     <div>
-      <h1>Tareas</h1>
-      <h2>Ingrese tareas</h2>
+      <h1 className={styles.title} >Task Board / Tabla de Tareas</h1>
+      <h2 className={styles.title} >Ingrese tareas Nuevas </h2>
       <form onSubmit={handleAddTask}>
         <input
+          className={styles.input}
           type="text"
           placeholder="Título de la tarea"
           value={newTaskTitle}
           onChange={(e) => setNewTaskTitle(e.target.value)}
         />
         <input
+          className={styles.input}
           type="text"
           placeholder="Descripción de la tarea"
           value={newTaskDescription}
           onChange={(e) => setNewTaskDescription(e.target.value)}
         />
-        <button type="submit">Agregar</button>
+        <button className={styles.button} type="submit">Agregar</button>
       </form>
 
       <div>
@@ -98,53 +101,56 @@ const TaskManager = () => {
         </select>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Título</th>
-            <th>Descripción</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+      <table className={styles.table}>
+      <thead className={styles.table}>
+        <tr>
+          <th className={styles.td}>Título</th>
+          <th className={styles.td}>Descripción</th>
+          <th className={styles.td}>Estado</th>
+          <th className={styles.td}>Acciones</th>
+        </tr>
+      </thead>
+      <tbody className={styles.td}>
+        {filteredTasks.map((task) => (
+          <tr key={task.id}>
+            <td className={styles.td}>{task.title}</td>
+            <td className={styles.td}  >{task.description}</td>
+            <td className={styles.td}>
+              {task.completed ? 'Completada' : 'Pendiente'}
+            </td>
+            <td className={styles.td}>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => handleTaskToggleCompleted(task.id)}
+              >
+                {task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
+              </button>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => {
+                  const newTitle = prompt('Nuevo título:', task.title);
+                  const newDescription = prompt('Nueva descripción:', task.description);
+                  if (newTitle !== null && newDescription !== null) {
+                    handleTaskEdit(task.id, newTitle, newDescription);
+                  }
+                }}
+              >
+                Editar
+              </button>
+              <button
+                className={styles.button}
+                type="button"
+                onClick={() => handleTaskDelete(task.id)}
+              >
+                Eliminar
+              </button>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-          {filteredTasks.map((task) => (
-            <tr key={task.id}>
-              <td>{task.title}</td>
-              <td>{task.description}</td>
-              <td>
-                {task.completed ? 'Completada' : 'Pendiente'}
-              </td>
-              <td>
-                <button
-                  type="button"
-                  onClick={() => handleTaskToggleCompleted(task.id)}
-                >
-                  {task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const newTitle = prompt('Nuevo título:', task.title);
-                    const newDescription = prompt('Nueva descripción:', task.description);
-                    if (newTitle !== null && newDescription !== null) {
-                      handleTaskEdit(task.id, newTitle, newDescription);
-                    }
-                  }}
-                >
-                  Editar
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleTaskDelete(task.id)}
-                >
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+        ))}
+      </tbody>
+    </table>
     </div>
   );
 };
