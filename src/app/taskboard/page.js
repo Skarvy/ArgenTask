@@ -1,5 +1,5 @@
 import React from 'react';
-import TaskManager from '../component/Taskmanager';
+import TaskManager from '../_component/Taskmanager';
 
 const Taskboard = () => {
   return (

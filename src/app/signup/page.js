@@ -21,13 +21,13 @@ const Signup = () => {
     // Enviar los datos del formulario al servidor
     // ...
 
-    // Redirigir al usuario a la página de inicio de sesión
+    // Sabemos que este enrutamiento no es el adecuado, pero por cuestiones de tiempo le buscamos una solucion temporal.
     window.location.href = '/login';
   };
 
   return (
     
-      <div className={styles.landing}>  
+      <div className={styles.landig}>  
       <h1 className={styles.title} >Argentask</h1> 
       <h2 className={styles.title}>Sign Up / Registro</h2>
       <form className={styles.form} onSubmit={handleSubmit}>
