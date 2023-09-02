@@ -1,0 +1,19 @@
+Grupo los Bugeados
+
+Irene Chiappara
+Silvano Saucedo
+Ignacio Lucero
+Mauricio Lucero
+Joaquin Scavariello
+
+
+
+
+Profe sabemos que tiene varias fallas tecnicas, pero por cuestiones de tiempo preferimos entregar algo funcional.
+Prometemos agregar librerias de estilos para las proximas entregas, usar next router como corresponde.
+
+
+
+En el seccion login para poder acceder, la unica cuenta y contraseña habilitada es
+usuario@ejemplo.com
+Contraseña
